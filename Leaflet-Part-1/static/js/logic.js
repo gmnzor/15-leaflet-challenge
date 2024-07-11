@@ -12,7 +12,10 @@ function createMarkers(response){
         let quake = earthquakes[index];
     
         // For each station, create a marker, and bind a popup with the station's name.
-        let quakeMarker = L.marker([quake.geometry.coordinates[1], quake.geometry.coordinates[0]])
+        let quakeMarker = L.circleMarker([quake.geometry.coordinates[1], quake.geometry.coordinates[0]],{
+            color:"green", //should hold depth, darker means deeper. probably need to create an array to hold min and max 
+            radius: "25"   // should indicate magnitude. higher magnitude should mean larger circle
+                })
           .bindPopup("<h3>" + quake.properties.title + "<h3><h3>Alert: " + quake.properties.alert  + "</h3>");
     
         // Add the marker to the bikeMarkers array.
@@ -51,7 +54,5 @@ function createMap(quakeMarkers) {
   }).addTo(myMap);
 
 };
-
-
 
 d3.json(url).then(createMarkers);
